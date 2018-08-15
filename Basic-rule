@@ -1,0 +1,87 @@
+<template>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Example Component</div>
+
+                    <div class="panel-body">
+                        Hai {{name}}
+
+                        <div v-html="htmlcontent"></div>
+                        <img v-bind:src="imagesrc" alt="">
+                        <testcomponent v-bind:class = "{active:sdf}"  v-bind:style='styleobj'></testcomponent>
+                        <input type="text" v-model="name">
+                        <input type="checkbox" v-model="checked">
+
+                        <input type = "radio" id = "black" value = "Black" v-model = "picked">Black
+
+                        <input type = "radio" id = "white" value = "White" v-model = "picked">White
+
+                        <select v-model = "languages">
+                            <option value="" disabled>Please select one</option>
+                            <option>C</option>
+                         </select>
+
+                        <table>
+                            <tr v-for="(t, p) in users"> <td>   {{t}}</td> </tr>
+                        </table>
+
+                        <h1 v-if = "show">This is h1 tag</h1>
+                        <h1 v-else>This is h2 tag</h1>
+                            
+                         <div v-show = "show">
+                            <b>V-Show:</b>
+                         </div>
+                        <div v-changeStyle="{color:'red', fontSize:'12px'}">Directive</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</template>
+
+<script>
+    /*Vue.component('testcomponent',{
+           template: '<div><h1>This is coming from component</h1></div>'
+       }
+    );*/
+    Vue.directive('changeStyle', {
+        bind(e1, binding, vnode) {
+            console.log(binding.value);
+            e1.style.color = binding.value.color; 
+            e1.style.fontSize = '10px'; 
+        }
+    });
+    export default {
+        data() {
+            return {
+                 name: " Sunil",
+                 show: false, 
+                 htmlcontent: "<div><h3>Lorem dummy text</h3></div>",
+                 imagesrc: "test.png",
+                 sdf:true,
+                 checked: false,
+                 picked: 'White',
+                 users: ['sunil', 'amit', 'ankur'],
+                 languages: "C",
+                 styleobj: {
+                    fontSize: '23px',
+                    color: 'red'
+                 }
+            }
+        },
+        methods: {
+            mmm:  function(){
+                return this.name;
+            }
+        },
+        components: {
+            'testcomponent': {
+                template: "<h2>Pagal</h2>",
+            } 
+        }
+    }
+</script>
